@@ -1,8 +1,14 @@
 package Usuario;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+
+@ManagedBean
+@RequestScoped
+
 public class Usuario {
 	private int ra;
-	private String senha;
+	public String senha;
 	private String nome;
 	private Tipo tipo;
 	private String foto;
