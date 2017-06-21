@@ -14,7 +14,7 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="C:/Users/daniel/workspace/postgresql-9.4.1209.jar"/>
-	<classpathentry kind="lib" path="C:/Users/daniel/workspace/javax.faces-2.2.13.jar"/>
-	<classpathentry kind="lib" path="C:/Users/daniel/workspace/primefaces-6.0.jar"/>
+	<classpathentry kind="lib" path="javax.faces-2.2.13.jar"/>
+	<classpathentry kind="lib" path="primefaces-6.0.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

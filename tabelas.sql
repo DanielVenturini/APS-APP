@@ -1,55 +1,70 @@
-﻿drop table if exists refeicao;
-drop table if exists reajuste;
-drop table if exists usuario;
-drop table if exists tipo;
-drop table if exists funcionario;
-drop table if exists cargo;
+DROP TABLE IF EXISTS funcionario;
+DROP TABLE IF EXISTS cargo;
+DROP TABLE IF EXISTS refeicao;
+DROP TABLE IF EXISTS reajuste;
+DROP TABLE IF EXISTS usuario;
+DROP TABLE IF EXISTS tipo;
 
-create table tipo (
-	id integer,
-	nome varchar(25),
-	primary key(id)
+CREATE TABLE cargo
+(
+  id SERIAL NOT NULL,
+  nome character varying(30),
+  CONSTRAINT cargo_pkey PRIMARY KEY (id)
 );
 
-create table usuario (
-	ra varchar(7),
-	senha varchar(8),
-	nome varchar(40),
-	tipo integer,
-	foto varchar(256),
-	primary key(ra),
-	foreign key(tipo) references tipo (id)
+CREATE TABLE funcionario
+(
+  id SERIAL NOT NULL,
+  nome character varying(40),
+  id_cargo integer,
+  CONSTRAINT funcionario_pkey PRIMARY KEY (id),
+  CONSTRAINT funcionario_id_cargo_fkey FOREIGN KEY (id_cargo)
+      REFERENCES cargo (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 
-create table reajuste(
-	id integer,
-	data date,
-	valor float,
-	obs varchar(256),
-	primary key(id)
+CREATE TABLE tipo
+(
+  id SERIAL NOT NULL,
+  nome character varying(25),
+  CONSTRAINT tipo_pkey PRIMARY KEY (id)
 );
 
-create table refeicao(
-	timestamp varchar(15),
-	ra varchar(7),
-	quantidade integer,
-	reajuste integer,
-	saldo integer,
-	primary key(timestamp),
-	foreign key(reajuste) references reajuste (id),
-	foreign key(ra) references usuario (ra)
+CREATE TABLE usuario
+(
+  ra integer NOT NULL,
+  senha character varying(8),
+  nome character varying(40),
+  tipo integer,
+  foto character varying(256),
+  CONSTRAINT usuario_pkey PRIMARY KEY (ra),
+  CONSTRAINT usuario_tipo_fkey FOREIGN KEY (tipo)
+      REFERENCES tipo (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 
-create table cargo(
-	id integer,
-	nome varchar(30),
-	primary key(id)
+CREATE TABLE reajuste
+(
+  id SERIAL NOT NULL,
+  data date,
+  valor double precision,
+  obs character varying(256),
+  CONSTRAINT reajuste_pkey PRIMARY KEY (id)
 );
 
-create table funcionario(
-	id integer,
-	nome varchar(40),
-	id_funcionario integer,
-	primary key(id),
-	foreign key(id_funcionario) references cargo (id)
+CREATE TABLE refeicao
+(
+  id SERIAL NOT NULL,
+  "timestamp" character varying(15),
+  ra integer,
+  saldo double precision,
+  quantidade integer,
+  idreajuste integer,
+  CONSTRAINT refeicao_pkey PRIMARY KEY (id),
+  CONSTRAINT refeicao_idreajuste_fkey FOREIGN KEY (idreajuste)
+      REFERENCES reajuste (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT refeicao_ra_fkey FOREIGN KEY (ra)
+      REFERENCES usuario (ra) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
 );

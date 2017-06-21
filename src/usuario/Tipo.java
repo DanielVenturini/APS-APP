@@ -1,22 +1,22 @@
-package usuario;
+package Usuario;
 
 public enum Tipo {
+	ESTUDANTE("1"),
+	PROFESSOR("2"),
+	VISISTANTE("3");
+	
+	private String id;
 
-    ESTUDANTE("1"),
-    PROFESSOR("2"),
-    VISITANTE("3");
+	 Tipo(String id) {
+		this.id = id;
+	}
 
-    private String id;
+	public String getId() {
+		return id;
+	}
 
-	    private Tipo(String id){
-	        this.id = id;
-	    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public void setTipo(String id){
-    	this.id = id;
-    }
-
-    public String getTipo(){
-        return id;
-    }
 }
