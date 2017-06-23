@@ -7,7 +7,7 @@ public class Extrato {
 	private int saldo;
 	
 	
-	public Extrato(String data, String hora, String operacao, int saldo, float saldo_dinheiro) {
+	public Extrato(String data, String hora, String operacao, int saldo) {
 		super();
 		this.data = data;
 		this.hora = hora;

@@ -21,7 +21,7 @@ public class DFView {
         options.put("contentHeight", "100%");
         options.put("headerElement", "customheader");
          
-        RequestContext.getCurrentInstance().openDialog("login", options, null);
+        RequestContext.getCurrentInstance().openDialog("extrato", options, null);
     }
 	
 }

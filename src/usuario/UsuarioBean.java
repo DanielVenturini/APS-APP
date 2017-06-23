@@ -1,5 +1,6 @@
 package Usuario;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,7 +20,7 @@ import org.primefaces.context.RequestContext;
 @ManagedBean(name="usuarioMB")
 @SessionScoped
 
-public class UsuarioBean {
+public class UsuarioBean implements Serializable{
 	private int ra;
 	private String senha;
 	

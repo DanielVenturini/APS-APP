@@ -78,10 +78,8 @@ public class UsuarioDAO {
 					operacao = "Consumo";
 				}
 				
-				float saldo_dinheiro = rs.getFloat(4);
-				int saldo_qtd = rs.getInt(5);
-				Extrato ex = new Extrato(data, hora, operacao, saldo_qtd, saldo_dinheiro);
-				extrato.add(ex);
+				int saldo = rs.getInt(4);
+				extrato.add(new Extrato(data, hora, operacao, saldo));
 				conn.close();
 			}
 			
