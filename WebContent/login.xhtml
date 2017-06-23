@@ -7,9 +7,10 @@
 
 <h:head>
 	<meta charset="UTF-8"/>
-	<title>Insert title here</title>
+	<title>Sistema RU</title>
 </h:head>
 <h:body style="background-color:#ffe599">
+
 	<h3 style="border: solid; background-color:#FFFFFF; width:120px;">SISTEMA RU</h3>
 	<h3 style="border: solid; background-color:#FFFFFF; width:770px;">UNIVERSIDADE TECNOLOGICA FEDERAL DO PARANÁ - CAMPUS CAMPO MOURAO</h3>
 	<br/>
@@ -17,13 +18,18 @@
 	<h:form>
 		<h:panelGrid columns="2">
      		<h:outputText style="font-weight:bold; font-size: 25px" value="RA: " />
-     		<p:inputText id="ra" value="#{Usuario.ra}" />
+     		<p:inputText id="ra" value="#{usuarioMB.ra}" placeholder="Ex: 1234567" />
 
         	<h:outputText style="font-weight:bold; font-size: 25px" value="Senha: " />
-        	<p:password id="senha" value="#{Usuario.senha}" />
+        	<p:password id="senha" value="#{usuarioMB.senha}" />
+     	</h:panelGrid>
+     	
+     	<h:panelGrid rendered = "#{usuarioMB.erro}">
+     		<p style="color:red">Login incorreto</p>
+     		
      	</h:panelGrid>
      	<br/>
-    	<h:commandButton style="width:90px; height:50px; font-size:20px" id="botao" value="Login" action="#{UsuarioDAO.autenticaUsuario(ra,senha)}"/>
+    	<h:commandButton style="width:90px; height:50px; font-size:20px" id="botao" value="Login" action="#{usuarioMB.autenticaUsuario}"/><!--  -->
     </h:form>
     </div>
  

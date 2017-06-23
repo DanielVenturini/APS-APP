@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui">
+     
+    <h:head>
+        <title>Extrato</title>
+        <style type="text/css">
+            .ui-widget {
+                font-size: 90%;
+            }
+        </style>
+    </h:head>
+     
+    <h:body>
+        <i id="customheader" class="fa fa-fw fa-car" style="display:none"></i>
+ 
+        <p:dataTable var="extrato" value="#{usuarioMB.extrato}">
+            <p:column headerText="Data">
+                <h:outputText value="#{extrato.data}" />
+            </p:column>
+ 
+            <p:column headerText="Hora">
+                <h:outputText value="#{extrato.hora}" />
+            </p:column>
+            
+            <p:column headerText="Operacão">
+                <h:outputText value="#{extrato.operacao}" />
+            </p:column>
+ 
+            <p:column headerText="Saldo">
+                <h:outputText value="#{extrato.saldo}" />
+            </p:column>
+ 
+        </p:dataTable>
+    </h:body>
+     
+</html>

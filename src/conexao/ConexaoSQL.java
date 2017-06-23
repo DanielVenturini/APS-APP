@@ -14,10 +14,10 @@ public class ConexaoSQL {
 	
 	public Connection getConexao (){
 		Connection con;
-		
+
 		try {
 			con = DriverManager.getConnection(url,user,pass);
-			//System.out.println("Conectado !!");
+			System.out.println("Conectado !!");
 			return con;
 		} catch (SQLException e) {
 			System.out.println("Erro na conexão!!");
