@@ -12,18 +12,46 @@
             }
         </style>
     </h:head>
-<h:body>
-	<p:panelGrid columns="2">
-	    <f:facet name="header">
-	        <p:graphicImage value="https://www.primefaces.org/showcase/javax.faces.resource/demo/images/misc/kobe.png.xhtml" />
-	    </f:facet>
-	 
-	    <h:outputText value="Nome:" />
-	    <h:outputText value="Kobe Bryant" />
-	 
-	    <h:outputText value="Curso:" />
-	    <h:outputText value="Los Angeles Lakers" />
- 
-    </p:panelGrid>
-</h:body>
+	
+	<h:body>	
+		<p:panelGrid columns="2">
+		 
+		    <h:outputText value="Nome:" />
+		    <h:outputText value="#{funcionarioMB.nome}" />
+		 
+		    <h:outputText value="Curso:" />
+		    <h:outputText value="#{funcionarioMB.curso}" />
+	  	</p:panelGrid>
+	    
+	    <p:panelGrid style="margin-top:20px">
+		    <f:facet name="header">
+		        <p:row>
+		            <p:column colspan="2">Quantidade</p:column>
+		            <p:column colspan="2">Preço Unitário</p:column>
+		            <p:column colspan="2">Preço Total</p:column>
+		        </p:row>
+		    </f:facet>
+		    
+		    <p:row>
+	        	<p:column colspan="2">#{funconarioMB.quantidade}</p:column>
+	        	<p:column colspan="2">#{funcionarioMB.preco} R$</p:column>
+	        	<p:column colspan="2">#{funcionarioMB.precototal} R$</p:column>
+		    </p:row>
+		    
+		    <f:facet name="footer">
+	        	<p:row>
+	            	<p:column colspan="2">Valor Recebido</p:column>
+	           	    <p:column colspan="4">#{funcionarioMB.total} R$</p:column>
+	        	</p:row>
+	        	<p:row>
+	            	<p:column colspan="2">Troco</p:column>
+	           	    <p:column colspan="4">#{funcionarioMB.troco} R$</p:column>
+	        	</p:row>
+		    </f:facet>
+		  		
+		</p:panelGrid>
+		<h:form>		
+			<p:commandButton style="margin-top:20px" value="Confirmar" actionListener="#{funcionarioMB.vender}" />
+		</h:form>
+	</h:body>
 </html>

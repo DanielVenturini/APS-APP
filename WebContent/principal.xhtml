@@ -11,17 +11,28 @@
 	</h:head>
 
 	<h:body style="background-color:#ffe599">
-	
-		<h3 style="border: solid; background-color:#FFFFFF; width:120px;">SISTEMA RU</h3>
-		<h3 style="border: solid; background-color:#FFFFFF; width:770px;">UNIVERSIDADE TECNOLOGICA FEDERAL DO PARANÁ - CAMPUS CAMPO MOURAO</h3>
-
-		<h:outputStylesheet name="grid/grid.css" library="primefaces" />
+		
 		<div class="ui-g">
+			<div class="ui-g-10" style="line-height:35px">
+				<h3 style="border: solid; background-color:#FFFFFF; width:120px;">SISTEMA RU</h3>
+				<h3 style="border: solid; background-color:#FFFFFF; width:770px;">UNIVERSIDADE TECNOLOGICA FEDERAL DO PARANÁ - CAMPUS CAMPO MOURAO</h3>
+			</div>
+			<div class="ui-g-2" style="line-height:35px">
+				<br/>
+				<h:form>
+					<p:splitButton value="Opcões"  icon="ui-icon-options">
+				        <p:menuitem value="Sair" action="#{usuarioMB.sair}" icon="ui-icon-logout" />
+				    </p:splitButton>
+				</h:form>
+			</div>
+		</div>
+		<h:outputStylesheet name="grid/grid.css" library="primefaces" />
+		<div class="ui-g" style="margin-top:30px">
 		    <div class="ui-g-4" style="line-height:35px">
 		    	<h:graphicImage value="#{usuarioMB.foto}" style="width:194px; height:188px; align:left; border:solid; padding:3px; background-color:#FFFFFF"/><br/>
-		    		<h:outputText style="font-weight:bold; border:solid; background-color:#FFFFFF; width:150px; font-size:20px" value="#{usuarioMB.nome}"/><br/>
-					<h:outputText style="font-weight:bold; border:solid; background-color:#FFFFFF; width:150px; font-size:20px" value="#{usuarioMB.ra}" /><br/>
-					<h:outputText style="font-weight:bold; border:solid; background-color:#FFFFFF; width:150px; font-size:20px" value="BCC" />
+		    	<h:outputText style="font-weight:bold; border:solid; background-color:#FFFFFF; width:150px; font-size:20px" value="#{usuarioMB.nome}"/><br/>
+				<h:outputText style="font-weight:bold; border:solid; background-color:#FFFFFF; width:150px; font-size:20px" value="#{usuarioMB.ra}" /><br/>
+				<h:outputText style="font-weight:bold; border:solid; background-color:#FFFFFF; width:150px; font-size:20px" value="#{usuarioMB.curso}" />
 		    </div>
 		    <div class="ui-g-8" style="margin-top:70px; line-height:50px">
 		   		<h:outputText style="font-weight:bold; align:center; font-size: 20px; margin-left:150px" value="CRÉDITO: #{usuarioMB.saldo}" /><br/>

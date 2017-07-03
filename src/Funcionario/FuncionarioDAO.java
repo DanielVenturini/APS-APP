@@ -1,4 +1,5 @@
 package Funcionario;
+import Usuario.UsuarioDAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,20 +11,18 @@ import java.util.Calendar;
 
 import Conexao.ConexaoSQL;
 import Conexao.OperacaoSQL;
-import Usuario.Tipo;
+import Usuario.Curso;
 import Usuario.Usuario;
 
 public class FuncionarioDAO {
 	
 	private Funcionario funcionario;
 	private ConexaoSQL n = new ConexaoSQL();
-	private Connection conn = n.getConexao();
-	private ResultSet rs;
-	private Statement smt;
 	
 	public boolean autenticaFuncionario(int id) throws SQLException{
 		String sql = "Select * From funcionario where id = "+id;
-		smt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+		Connection conn = n.getConexao();
+		Statement smt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 		ResultSet rs = smt.executeQuery(sql);
 		
 		if(rs.first()){
@@ -32,15 +31,32 @@ public class FuncionarioDAO {
 		}
 		return false;
 	}
+	
+	public boolean autenticaConsumo(int ra) throws SQLException{
+		UsuarioDAO userdao = new UsuarioDAO();
+		System.out.println("Autenticando Consumo");
+		
+		if(!userdao.autenticaUsuario(ra))
+			return false;
+		
+		int saldo = userdao.getSaldo();
+		if(saldo >= 1){
+			this.consumo(ra);
+			return true;
+		}
+
+		return false;
+	}
 
 	public boolean vender(int qtd, int ra) throws SQLException{
 		//verifica se o funcionario é um vendedor
-		if(!autorizaOp(Cargo.VENDEDOR)){
+		/*if(!autorizaOp(Cargo.VENDEDOR)){
 			return false;
-		}
+		}*/
 		//verifica a existencia do ra no banco de dados.
 		String sql = "select * from usuario where ra="+ra;
-		smt = conn.createStatement();
+		Connection conn = n.getConexao();
+		Statement smt = conn.createStatement();
 		if(!smt.execute(sql)) return false;
 		
 		int novoSaldo;
@@ -87,8 +103,9 @@ public class FuncionarioDAO {
 
 	private boolean autorizaOp(Cargo c) throws SQLException{
 		String sql = "select * from funcionario where id = "+funcionario.getId() +" and id_cargo = " + c.getId();
-		smt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-		rs = smt.executeQuery(sql);
+		Connection conn = n.getConexao();
+		Statement smt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+		ResultSet rs = smt.executeQuery(sql);
 
 		return rs.first();
 	}
@@ -96,8 +113,9 @@ public class FuncionarioDAO {
 	public boolean consumo(int ra) throws SQLException{
 		//seleciona o saldo do usuario
 		String sql = "Select saldo from refeicao where id = (select max(id) from refeicao where ra = "+ra+");";
-		smt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-		rs = smt.executeQuery(sql);
+		Connection conn = n.getConexao();
+		Statement smt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+		ResultSet rs = smt.executeQuery(sql);
 		rs.first();
 		int saldo = rs.getInt(1);		 
 		
@@ -130,5 +148,13 @@ public class FuncionarioDAO {
 				}
 			 return true;
 		}
+	}
+	
+	public float getPreco() throws SQLException{
+		Connection conn = n.getConexao();
+		Statement smt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+		ResultSet rs = smt.executeQuery("select valor from reajuste where id = (select max(id) from reajuste)");
+		rs.next();
+		return rs.getFloat(1);
 	}
 }

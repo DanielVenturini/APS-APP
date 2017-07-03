@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+
 import Conexao.ConexaoSQL;
 
 public class UsuarioDAO {
@@ -15,7 +18,7 @@ public class UsuarioDAO {
 	private Usuario usuario;
 	private ConexaoSQL n = new ConexaoSQL();
 
-	public boolean autenticaUsuario(int ra , String senha) throws SQLException{
+	public boolean autenticaLogin(int ra , String senha) throws SQLException{
 		System.out.println("Autenticando usuario");
 		
 		Connection conn = n.getConexao();
@@ -25,7 +28,7 @@ public class UsuarioDAO {
 		
 		if(rs.first()){
 			if(rs.getString(2).equals(senha)){
-				usuario = new Usuario(ra, senha, rs.getString(3),Tipo.ESTUDANTE, rs.getString(5));
+				usuario = new Usuario(ra, senha, rs.getString(3), rs.getString(4), Curso.getById(rs.getInt(5)));
 				conn.close();
 				System.out.println("Usuario autenticado");
 				return true;
@@ -35,7 +38,24 @@ public class UsuarioDAO {
 		System.out.println("Usuario nao autenticado");
 		return false;
 	}
-
+	
+	public boolean autenticaUsuario(int ra) throws SQLException{
+		System.out.println("Autenticando usuario");
+		Connection conn = n.getConexao();
+		String sql = "Select * From usuario where ra = "+ra;
+		Statement smt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+		ResultSet rs = smt.executeQuery(sql);
+		
+		if(rs.first()){
+			usuario = new Usuario(ra, rs.getString(2), rs.getString(3), rs.getString(4), Curso.getById(rs.getInt(5)));
+			conn.close();
+			System.out.println("Usuario autenticado");
+			return true;
+		}
+		conn.close();
+		System.out.println("Usuario nao autenticado RA: "+ra);
+		return false;
+	}
 	
 	public int getSaldo (){
 		String sql = "select saldo from refeicao where id = (select max(id) from refeicao where ra = "+ usuario.getRa()+")";
@@ -95,8 +115,19 @@ public class UsuarioDAO {
 		}
 		return extrato;
 	}
+	
+	public float getPreco() throws SQLException{
+		Connection conn = n.getConexao();
+		Statement smt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+		ResultSet rs = smt.executeQuery("select valor from reajuste where id = (select max(id) from reajuste)");
+		rs.next();
+		return rs.getFloat(1);
+	}
+	
+	
 	public Usuario getUsuario(){
 		return usuario;
 	}
+	
 }
 

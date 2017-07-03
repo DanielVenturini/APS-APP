@@ -4,16 +4,16 @@ public class Usuario {
 	private int ra;
 	private String senha;
 	private String nome;
-	private Tipo tipo;
 	private String foto;
-
-	public Usuario(int ra, String senha, String nome, Tipo tipo, String foto) {
+	private Curso curso;
+	
+	public Usuario(int ra, String senha, String nome, String foto, Curso curso) {
 		super();
 		this.ra = ra;
 		this.senha = senha;
 		this.nome = nome;
-		this.tipo = tipo;
 		this.foto = foto;
+		this.curso = curso;
 	}
 	public int getRa() {
 		return ra;
@@ -29,21 +29,21 @@ public class Usuario {
 	}
 	public String getNome() {
 		return nome;
-	}
+	}	
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-	public Tipo getTipo() {
-		return tipo;
-	}
-	public void setTipo(Tipo tipo) {
-		this.tipo = tipo;
 	}
 	public String getFoto() {
 		return foto;
 	}
 	public void setFoto(String foto) {
 		this.foto = foto;
+	}
+	public Curso getCurso(){
+		return curso;
+	}
+	public void setCurso(Curso curso){
+		this.curso = curso;
 	}
 	public Usuario() {
 		// TODO Auto-generated constructor stub

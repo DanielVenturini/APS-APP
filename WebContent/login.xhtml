@@ -24,12 +24,10 @@
         	<p:password id="senha" value="#{usuarioMB.senha}" />
      	</h:panelGrid>
      	
-     	<h:panelGrid rendered = "#{usuarioMB.erro}">
-     		<p style="color:red">Login incorreto</p>
-     		
-     	</h:panelGrid>
+     	<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+     	
      	<br/>
-    	<h:commandButton style="width:90px; height:50px; font-size:20px" id="botao" value="Login" action="#{usuarioMB.autenticaUsuario}"/><!--  -->
+    	<h:commandButton style="width:90px; height:50px; font-size:20px" id="botao" value="Login" action="#{usuarioMB.autenticaLogin}"/>
     </h:form>
     </div>
  

@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS cargo;
 DROP TABLE IF EXISTS refeicao;
 DROP TABLE IF EXISTS reajuste;
 DROP TABLE IF EXISTS usuario;
-DROP TABLE IF EXISTS tipo;
+DROP TABLE IF EXISTS curso;
 
 CREATE TABLE cargo
 (
@@ -23,11 +23,11 @@ CREATE TABLE funcionario
       ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 
-CREATE TABLE tipo
+CREATE TABLE curso
 (
-  id SERIAL NOT NULL,
+  id int,
   nome character varying(25),
-  CONSTRAINT tipo_pkey PRIMARY KEY (id)
+  CONSTRAINT curso_pkey PRIMARY KEY (id)
 );
 
 CREATE TABLE usuario
@@ -35,11 +35,11 @@ CREATE TABLE usuario
   ra integer NOT NULL,
   senha character varying(8),
   nome character varying(40),
-  tipo integer,
   foto character varying(256),
+  curso integer,
   CONSTRAINT usuario_pkey PRIMARY KEY (ra),
-  CONSTRAINT usuario_tipo_fkey FOREIGN KEY (tipo)
-      REFERENCES tipo (id) MATCH SIMPLE
+  CONSTRAINT usuario_curso_fkey FOREIGN KEY (curso)
+      REFERENCES curso (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 

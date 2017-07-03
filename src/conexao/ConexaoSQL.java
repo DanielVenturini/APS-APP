@@ -16,6 +16,7 @@ public class ConexaoSQL {
 		Connection con;
 
 		try {
+			
 			con = DriverManager.getConnection(url,user,pass);
 			System.out.println("Conectado !!");
 			return con;
